@@ -1,0 +1,30 @@
+---
+abstract: 'API for DISTO OEM Module 3.0'
+author:
+  - 'Jonathan Chu <jrchu@cs.ucla.edu>'
+build_requires: {}
+configure_requires:
+  Module::Build: 0.38
+dynamic_config: 1
+generated_by: 'Module::Build version 0.38, CPAN::Meta::Converter version 2.110440'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: OEMModule3
+provides:
+  OEMModule3:
+    file: lib/OEMModule3.pm
+    version: 0.1
+  OEMModule3::Comm:
+    file: lib/OEMModule3/Comm.pm
+    version: 0
+  OEMModule3::Serial:
+    file: lib/OEMModule3/Serial.pm
+    version: 0
+requires:
+  List::MoreUtils: 0
+  Moo: 0
+resources:
+  license: http://dev.perl.org/licenses/
+version: 0.1

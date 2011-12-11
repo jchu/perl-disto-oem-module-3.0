@@ -1,0 +1,50 @@
+{
+   "abstract" : "API for DISTO OEM Module 3.0",
+   "author" : [
+      "Jonathan Chu <jrchu@cs.ucla.edu>"
+   ],
+   "dynamic_config" : 1,
+   "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.110440",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "OEMModule3",
+   "prereqs" : {
+      "configure" : {
+         "requires" : {
+            "Module::Build" : "0.38"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "List::MoreUtils" : 0,
+            "Moo" : 0
+         }
+      }
+   },
+   "provides" : {
+      "OEMModule3" : {
+         "file" : "lib/OEMModule3.pm",
+         "version" : "0.1"
+      },
+      "OEMModule3::Comm" : {
+         "file" : "lib/OEMModule3/Comm.pm",
+         "version" : 0
+      },
+      "OEMModule3::Serial" : {
+         "file" : "lib/OEMModule3/Serial.pm",
+         "version" : 0
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "license" : [
+         "http://dev.perl.org/licenses/"
+      ]
+   },
+   "version" : "0.1"
+}
