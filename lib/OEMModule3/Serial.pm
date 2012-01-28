@@ -24,7 +24,7 @@ has baud_rate => (
     #    my $baud = shift;
     #    die unless any { $baud == $_ } @($self->baud_rates);
     #},
-    required => 1,
+    default => sub { 9600 },
 );
 
 has baud_rates => (

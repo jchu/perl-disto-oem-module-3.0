@@ -13,6 +13,6 @@ use warnings;
 
 use Moo::Role;
 
-requires qw/send/;
+requires qw/send read_more/;
 
 1;

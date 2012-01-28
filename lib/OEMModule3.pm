@@ -15,6 +15,7 @@ use List::MoreUtils;
 use Moo;
 
 use OEMModule3::Serial;
+use OEMModule3::Telnet;
 
 our $VERSION = '0.1';
 
@@ -112,16 +113,15 @@ has comm => (
     builder => '_build_comm',
 );
 
-# ::Serial or ::Telnet
 has comm_class => (
     is => 'ro',
     isa => sub {
-        die "Only Serial and Telnet support" unless $_[0] =~ /Serial|Telnet/
+        die "Only OEMModule3::Serial and OEMModule3::Telnet supported" unless $_[0] =~ /OEMModule3::Serial|OEMModule3::Telnet/
     },
     required => 1,
 );
 
-# ::Serial
+# OEMModule3::Serial
 has serial_device => (
     is => 'ro',
 );
@@ -132,17 +132,16 @@ has baud_rate => (
     #    my $baud = $_[0];
     #    die unless any { $baud == $_ } @($self->baud_rates);
     #},
-    default => 9600,
 );
 
-has baud_rates => (
-    is => 'ro',
-    default => sub {
-        [1200, 2400, 4800, 9600, 19200]
-    },
-);
+#has baud_rates => (
+#    is => 'ro',
+#    default => sub {
+#        [1200, 2400, 4800, 9600, 19200]
+#    },
+#);
 
-# ::Telnet
+# OEMModule3::Telnet
 
 has server_name => (
     is => 'ro',
@@ -167,6 +166,9 @@ my $SN          = "02\r\n";
 my $DOM         = "03\r\n";
 my $DOFFSET     = "44\r\n";
 my $BAUD        = "70\r\n";
+
+my $PRE     = "D";
+my $POST    = "\t";
 
 #-----------------------------------------------------------
 #
@@ -354,7 +356,7 @@ sub send_command {
     #}
     
     # send over serial
-    my $resp = $self->comm->send($command);
+    my $resp = $self->comm->send("${PRE}${command}${POST}");
 
     if( $expected > 1 ) {
         $self->comm->read_more();
@@ -379,10 +381,11 @@ sub _build_comm {
                 baud_rate => $self->baud_rate
             });
     } elsif( $self->comm_class eq 'OEMModule3::Telnet' ) {
-        return $self->comm_class->new({
+        my $telnet = $self->comm_class->new({
                 server_name => $self->server_name,
                 server_port => $self->server_port
             });
+        return $telnet;
     }
 }
 
