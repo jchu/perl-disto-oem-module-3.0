@@ -11,6 +11,8 @@ package OEMModule3::Telnet;
 use Moo;
 use Net::Telnet;
 
+use Data::Hexdumper qw(hexdump);
+
 with('OEMModule3::Comm');
 
 has server_name => (
@@ -39,9 +41,19 @@ sub send {
     my $string_in = $self->telnet->getline();
     warn "Read: $string_in";
 
-    while( $string_in =~ /HELLO/ || $string_in =~ /^\s+$/ ) {
+    if(defined($string_in)) {
+        warn hexdump(data => $string_in);
+    }
+    
+    my $nl = "\x00\x0A";
+    my $nl2 = "\x0A";
+    while( !defined($string_in) || $string_in =~ /^$nl$/ || $string_in =~ /^$nl2$/ ) {
+        warn "Reading...";
         $string_in = $self->telnet->getline();
         warn "Read: $string_in";
+        if (defined($string_in)) {
+            warn hexdump(data => $string_in);
+        }
     }
     return $string_in;
 }
