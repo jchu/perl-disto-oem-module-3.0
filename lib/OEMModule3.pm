@@ -205,7 +205,7 @@ sub clear {
 sub measure_distance {
     my $self = shift;
 
-    my $resp = $self->send_command($DMEASURE, 2);
+    my $resp = $self->send_command($DMEASURE, 1);
 
     if( $resp =~ /31..00(?<sign>[-+])(?<distance>\d{8})/ ) {
         return ($+{distance} + 0) * ($+{sign} eq '+' ? 1 : -1);
