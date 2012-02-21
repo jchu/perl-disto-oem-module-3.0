@@ -35,24 +35,24 @@ sub send {
     my $self = shift;
     my $cmd = shift;
 
-    warn "Sending command: $cmd";
+    #warn "Sending command: $cmd";
     $self->telnet->put($cmd);
-    warn "Reading...";
+    #warn "Reading...";
     my $string_in = $self->telnet->getline();
-    warn "Read: $string_in";
+    #warn "Read: $string_in";
 
     if(defined($string_in)) {
-        warn hexdump(data => $string_in);
+        #warn hexdump(data => $string_in);
     }
     
     my $nl = "\x00\x0A";
     my $nl2 = "\x0A";
     while( !defined($string_in) || $string_in =~ /^$nl$/ || $string_in =~ /^$nl2$/ ) {
-        warn "Reading...";
+        #warn "Reading...";
         $string_in = $self->telnet->getline();
-        warn "Read: $string_in";
+        #warn "Read: $string_in";
         if (defined($string_in)) {
-            warn hexdump(data => $string_in);
+            #warn hexdump(data => $string_in);
         }
     }
     return $string_in;
