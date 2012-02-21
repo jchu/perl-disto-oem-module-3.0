@@ -207,7 +207,7 @@ sub measure_distance {
 
     my $resp = $self->send_command($DMEASURE, 1);
 
-    if( $resp =~ /31..00(?<sign>[-+])(?<distance>\d{8})/ ) {
+    if( $resp && $resp =~ /31..00(?<sign>[-+])(?<distance>\d{8})/ ) {
         return ($+{distance} + 0) * ($+{sign} eq '+' ? 1 : -1);
     } else {
         return undef;
